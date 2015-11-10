@@ -46,7 +46,7 @@
 
 @media screen, projection {
 	body {
-		background-image: url("../images/int/bg-tags-ch.png");
+		background-image: none;
 		background-color: #F9B200;
 	}
 
@@ -263,7 +263,7 @@
 	}
 
 	.content-header-big {
-		background: url(../images/int/bg-tags-at.png);
+		background: url(../images/int/bg-tags.png);
 	}
 
 	.content-primary input[type="text"]:hover,
@@ -452,8 +452,7 @@
 	}
 
 	.footer {
-		background: black url("../images/int/bg-tags_gray.jpg") -20% top fixed;
-		overflow: hidden;
+		background-image: none;
 	}
 
 	.footer .row {
@@ -658,18 +657,6 @@
 	#header-menu-icon:active::after {
 		color: #555 !important;
 	}
-
-	/*
-	.nav-main ul.menu li:hover ul li a,
-	.nav-main ul.menu li.hover ul li a,
-	.nav-main ul.menu li:hover ul li:hover a,
-	.nav-main ul.menu li.hover ul li.hover a,
-	.nav-main ul.menu li li a,
-	.nav-main ul.menu li li li a,
-	.nav-main ul.menu li li li li a  {
-		background-color: #222222 !important;
-	}
-	*/
 
 	/* overwriting fonts from hamburger.css */
 	.nav-main {
