@@ -3,6 +3,18 @@ Theme Piratenkleider
 Changelog 
 (since version 3.2; Former changes look at github.com/Piratenkleider/)
 
+Version 3.4.2:
+* added commit for ch modification https://github.com/xwolfde/Piratenkleider/commit/44897fa8ef6ca7c19049aa6d32771881e207b467 
+
+Version 3.4.1:
+* Error 404 page: Removed default sidebar. In case of wrong links in widgets its
+  better not to show them in the 404 page, due to loops.
+
+Version 3.4.0:
+* Update URL Pirate party turkey to https://korsanparti.org/ also for iconless list
+* Removed wrong php ending on some files. Might cause trouble on plugins...
+* Made font Aller rg avaible for theme design settings
+
 Version 3.3.17:
 * Update URL Pirate party turkey to https://korsanparti.org/
 * Removed wp_title() from templates

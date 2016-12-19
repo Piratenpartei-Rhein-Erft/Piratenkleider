@@ -1,3 +1,4 @@
+
 /*
  * Document   : colors_ch
  * Created on : 07.06.2015, 00:55
@@ -657,6 +658,8 @@
 	#header-menu-icon:active::after {
 		color: #555 !important;
 	}
+
+	
 
 	/* overwriting fonts from hamburger.css */
 	.nav-main {
