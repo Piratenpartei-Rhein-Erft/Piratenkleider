@@ -136,8 +136,8 @@ $defaultoptions = array(
     'category-teaser-floating-halfwidth'    => 1,
     'category-teaser-dateline-halfwidth'    => 2, 
         /* 1 = show Date on line up of the text if no datebox */    
-    'teaser-thumbnail_width'		    => 120,
-    'teaser-thumbnail_height'		    => 120,
+    'teaser-thumbnail_width'		    => 150,
+    'teaser-thumbnail_height'		    => 150,
     'teaser-thumbnail_crop'		    => 1,
     
     'linktipp-thumbnail_width'		    => 320,
@@ -195,12 +195,12 @@ $defaultoptions = array(
     'dir_feed_cache'                => '',
     'teaserlink1-title'             => __( 'Get Informed', 'piratenkleider' ),
     'teaserlink1-untertitel'        => __( 'about our topics and visions!', 'piratenkleider' ),            
-    'teaserlink1-url'               => 'https://www.piratenpartei.de/politik/themen/', 
+    'teaserlink1-url'               => 'https://www.piratenpartei.de/politik/', 
     'teaserlink1-symbol'            => 'idee',
     
     'teaserlink2-title'             => __( 'Support us', 'piratenkleider' ),
     'teaserlink2-untertitel'        => __( 'with your engagement!', 'piratenkleider' ),            
-    'teaserlink2-url'               => 'https://www.piratenpartei.de/unterstutze-uns/', 
+    'teaserlink2-url'               => 'https://spenden.piratenpartei.de/', 
     'teaserlink2-symbol'            => 'herz',
     
     'teaserlink3-title'             => __( 'Become a Pirat!', 'piratenkleider' ),
@@ -2209,14 +2209,7 @@ $setoptions = array(
                   'title'   => __( 'Other options', 'piratenkleider' ),
               ),
 	       
-	     'favicon-file' => array(
-                  'type'    => 'image',
-                  'title'   => __( 'Favicon', 'piratenkleider' ),
-                  'label'   => __( 'Set an own favicon file for your website.', 'piratenkleider' ),
-		  'parent' => 'miscdesign',
-		  'maxwidth' =>  64,
-		  'maxheight'=>  64,
-              ),
+
 	       'src-teaser-thumbnail_default'=> array(
                   'type'    => 'image',
                   'title'   => __( 'Fallback thumbnail', 'piratenkleider' ),
