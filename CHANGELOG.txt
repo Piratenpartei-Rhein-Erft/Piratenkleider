@@ -3,6 +3,10 @@ Theme Piratenkleider
 Changelog 
 (since version 3.2; Former changes look at github.com/Piratenkleider/)
 
+Version 3.4.3:
+* set default thumb size for teaser to 150x150
+* removed favicon handling: WordPress brings a new customizer for favicon.
+
 Version 3.4.2:
 * added commit for ch modification https://github.com/xwolfde/Piratenkleider/commit/44897fa8ef6ca7c19049aa6d32771881e207b467 
 

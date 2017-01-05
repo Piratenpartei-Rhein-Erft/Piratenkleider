@@ -28,9 +28,9 @@ if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 $_SERVER['REMOTE_ADDR'] = getAnonymIp($_SERVER['REMOTE_ADDR']);
 
 if ($options['anonymize-user']==1) {
-    /* IP-Adresse Ã¼berschreiben */
+    /* IP-Adresse ueberschreiben */
     $_SERVER["REMOTE_ADDR"] = "0.0.0.0";
-    /* UA-String Ã¼berschreiben */
+    /* UA-String ueberschreiben */
     $_SERVER["HTTP_USER_AGENT"] = "";    
     update_option('require_name_email',0);
 }
@@ -500,12 +500,6 @@ function piratenkleider_addmetatags() {
         $output .= '<meta name="keywords" content="'.$tags.'">'."\n";
     }
     
-    if ((isset($options['favicon-file'])) && ($options['favicon-file_id']>0 )) {	 
-        $output .=  '<link rel="shortcut icon" href="'.$options['favicon-file'].'">'."\n";
-    } else {
-        $output .=  '<link rel="apple-touch-icon" href="'.get_piratenkleider_template_uri().'/apple-touch-icon.png">'."\n";
-        $output .=  '<link rel="shortcut icon" href="'.get_piratenkleider_template_uri().'/favicon.ico">'."\n";
-    }
     echo $output;
 }
 add_action('wp_head', 'piratenkleider_addmetatags',1);
@@ -522,7 +516,7 @@ function piratenkleider_load_open_graph() {
     if ($options['open_graph-active']!=true) {
         return;
     }
-    // Standard-Grafik fÃ¼r Seiten ohne Beitragsbild
+    // Standard-Grafik fuer Seiten ohne Beitragsbild
     $default_site_logo = wp_make_link_relative(get_header_image());
      
     // Wenn Startseite
