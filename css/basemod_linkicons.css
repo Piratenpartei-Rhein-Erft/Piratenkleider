@@ -221,6 +221,7 @@
 .content-primary h2 a:before,
 .content-primary h3 a:before,
 .content-primary #ai1ec-container a:before,
+.content-primary .p3-column a:not(.extern):before,
 .content-primary a.rsswidget:before,
 a.rsswidget:before,
 .content-primary a.nolinkicon:before {
