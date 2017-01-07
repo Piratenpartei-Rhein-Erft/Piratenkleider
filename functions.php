@@ -818,7 +818,7 @@ function piratenkleider_comment( $comment, $args, $depth ) {
             if ( $comment->user_id > 0 && $user = get_userdata($comment->user_id) ) {
                 $addclass= 'class="byuser"';              
             } ?>
-            <article <?php echo $addclass;?> itemprop="comment" itemscope itemtype="http://schema.org/UserComments">
+            <article id="comment-<?php comment_ID(); ?>"<?php echo $addclass;?> itemprop="comment" itemscope itemtype="http://schema.org/UserComments">
               <header>  
                 <div class="comment-details">
                     
