@@ -351,8 +351,7 @@ ul.ts-fab-list li a {
 
 /* Support for shariff and diaspora */
 .content-primary .wp-flattr-button a:before,
-.content-primary #diaspora-button-container a:before,
-.content-primary .shariff a:before {
+.content-primary #diaspora-button-container a:before {
 	background: none;
 	width: 0;
 	display: inline-block;
