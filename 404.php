@@ -58,7 +58,9 @@
     <div class="content-aside">
       <div class="skin">
           <p>
-             <em>These are not the pages you are looking for.</em>
+             <em>
+			    <?php _e("These are not the pages you are looking for.", 'piratenkleider'); ?>
+			 </em>
           </p>
       </div>
     </div>

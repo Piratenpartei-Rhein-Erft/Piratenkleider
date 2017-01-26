@@ -36,7 +36,7 @@
                 echo '<div class="content-header">';
             }
             ?>    		    		    		        
-               <h1 class="post-title"><span><?php printf( __( 'Kategorie %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>
+               <h1 class="post-title"><span><?php printf( __( 'Category %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>
                <div class="symbolbild"><img src="<?php echo piratenkleider_make_link_relative($image_url); ?>" alt="" itemprop="image">
 		   <?php if (($options['category-teaser']==0) && isset($attribs["credits"]) && (strlen($attribs["credits"])>1)) {
                            echo '<div class="caption">'.$attribs["credits"].'</div>';  
