@@ -7,7 +7,7 @@ if ( post_password_required() ) : ?>
     <?php return;
 endif; 
 if ( have_comments() ) : ?>
-    <h2 id="comments-title"><?php _e("Kommentare", 'piratenkleider'); ?></h2>
+    <h2 id="comments-title"><?php _e("Comments", 'piratenkleider'); ?></h2>
      <p>   
     <?php printf( _n( 'One comment for %2$s', '%1$s comments for %2$s', get_comments_number(), 'piratenkleider' ), number_format_i18n( get_comments_number() ), '' . get_the_title() . '' ); ?>
     </p>
