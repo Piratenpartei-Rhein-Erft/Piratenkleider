@@ -63,7 +63,7 @@ if ($options['anonymize-user']==1) {
     } else {
         // WP-Default (Name+Email+URL)
         
-          $comment_before = $comments_before. $defaultoptions['default_comment_notes_before'];         
+          $comment_before = $comment_before. $defaultoptions['default_comment_notes_before'];         
           comment_form( array( 'comment_notes_before' => $comment_before ) ); 
     }           
         
