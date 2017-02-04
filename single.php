@@ -10,16 +10,30 @@
 
 	    $image_url = '';
 	    $image_alt = '';
-	    if (has_post_thumbnail()) { 
+             $attribs = array(
+                "credits" => $options['img-meta-credits'],
+            );
+            $sliderimage =  get_post_meta( get_the_ID(), 'piratenkleider_slider_image', true );
+            if ($sliderimage) {
+                    $image_url_data = wp_get_attachment_image_src( $sliderimage, 'highslider');  
+                    $image_url = $image_url_data[0];
+                    $attribs = piratenkleider_get_image_attributs($sliderimage);
+
+            } elseif (has_post_thumbnail()) { 
 		$thumbid = get_post_thumbnail_id(get_the_ID());
-		 // array($options['bigslider-thumb-width'],$options['bigslider-thumb-height'])
 		$image_url_data = wp_get_attachment_image_src( $thumbid, 'full');
 		$image_url = $image_url_data[0];
-		$image_alt = trim(strip_tags( get_post_meta($thumbid, '_wp_attachment_image_alt', true) ));
-			
-	    } else {
+		$attribs = piratenkleider_get_image_attributs($thumbid);	
+	    } 
+	    if (!(isset($image_url) && (strlen($image_url)>4))) { 	
 		if (($options['aktiv-artikelbild']==1) && (isset($options['artikelbild-src']))) {  
-		    $image_url = $options['artikelbild-src'];		    
+		    if (isset($options['artikelbild-src_id']) && ($options['artikelbild-src_id']>0)) {
+			$image_url_data = wp_get_attachment_image_src( $options['artikelbild-src_id'], 'full');
+			$image_url = $image_url_data[0];
+			$attribs = piratenkleider_get_image_attributs($options['artikelbild-src_id']);
+		    } else {
+			$image_url = $options['artikelbild-src'];
+		    }
 		}
 	    }
 	    
@@ -31,40 +45,45 @@
 		}
 		?>  
 		    <header>
-			<h1 class="post-title"><span><?php the_title(); ?></span></h1>
+			<h1 class="post-title"><span itemprop="headline"><?php the_title(); ?></span></h1>
 		    </header>    
-		   <div class="symbolbild"><img src="<?php echo $image_url ?>" alt="">
-		   <?php if (isset($image_alt) && (strlen($image_alt)>1)) {
-		     echo '<div class="caption">'.$image_alt.'</div>';  
-		   }  ?>
+		   <div class="symbolbild"><img src="<?php echo piratenkleider_make_link_relative($image_url); ?>" alt="" itemprop="image">
+                    <?php if (isset($attribs["credits"]) && (strlen($attribs["credits"])>1)) {
+                           echo '<div class="caption">'.$attribs["credits"].'</div>';  
+                        }  ?>
 		   </div>
 		</div>  	
 	    <?php } ?>
       
       <div class="skin">
        <?php if (!(isset($image_url) && (strlen($image_url)>4))) { ?>
-	    <h1 class="post-title"><span><?php the_title(); ?></span></h1>
+	    <h1 class="post-title"><span itemprop="headline"><?php the_title(); ?></span></h1>
 	<?php } ?>
  
         <section <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 	    <?php 
-		if ( (isset($custom_fields['show-post-disclaimer']))
-                 && ($custom_fields['show-post-disclaimer'][0]<>'') 
-                 && ($options['post_disclaimer']<>'') 
-                 && ( ($custom_fields['show-post-disclaimer'][0]==1) || ($custom_fields['show-post-disclaimer'][0]==3)) 
+	    $show_disclaimer = get_post_meta( get_the_ID(), 'piratenkleider-show-post-disclaimer', true );
+		if ( (isset($show_disclaimer)) && (isset($options['post_disclaimer']))  && ($options['post_disclaimer']<>'') 
+                 && ( ($show_disclaimer==1) || ($show_disclaimer==3)) 
                 ) {
 		   echo '<div class="disclaimer">'.$options['post_disclaimer'].'</div>';
                 }				
-		piratenkleider_post_datumsbox();  ?>  
-
-	      <article class="post-entry">
-		<?php the_content(); ?>
+		echo piratenkleider_post_datumsbox();  
+                ?>  
+	      <article class="post-entry" itemprop="articleBody">
+    
+		<?php 
+                 $subtitle =  get_post_meta( get_the_ID(), 'piratenkleider_subtitle', true );
+                if ($subtitle) {
+                    echo '<h2 class="subtitle">'.$subtitle."</h2>\n";
+                }
+                the_content();
+                ?>
 	      </article>
              <?php 
-            if ( (isset($custom_fields['show-post-disclaimer']))
-                 &&   ($custom_fields['show-post-disclaimer'][0]<>'') 
-                 && ($options['post_disclaimer']<>'') 
-                 && ( ($custom_fields['show-post-disclaimer'][0]==2) || ($custom_fields['show-post-disclaimer'][0]==3)) 
+            if ( (isset($show_disclaimer))  && (isset($options['post_disclaimer'])) 
+                    && ($options['post_disclaimer']<>'') 
+                 && ( ($show_disclaimer==2) || ($show_disclaimer==3)) 
                 ) {
                 echo '<div class="disclaimer">';
                 echo $options['post_disclaimer'];
@@ -80,7 +99,7 @@
 			?>                  
 		      </p>
 		</div>
-		<div><?php edit_post_link( __( 'Bearbeiten', 'piratenkleider' ), '', '' ); ?></div>
+		<div><?php edit_post_link( __( 'Edit', 'piratenkleider' ), '', '' ); ?></div>
         </section>
 	<div class="post-nav">
 		<ul>
@@ -98,7 +117,7 @@
         
         <?php if (has_filter( 'related_posts_by_category')) { ?>  
 	    <div class="post-nav">
-	      <h3><?php _e("Weitere Artikel in diesem Themenkreis:", 'piratenkleider'); ?></h3>
+	      <h3><?php _e("More entries:", 'piratenkleider'); ?></h3>
 	      <ul class="related">
 		<?php do_action(
 		'related_posts_by_category',
@@ -111,10 +130,8 @@
 		'inside' => '',
 		'outside' => '',
 		'after' => '</li>',
-		'rel' => 'follow',
 		'type' => 'post',
-		'image' => array(1, 1),
-		'message' => __('Keine Treffer','piratenkleider')
+		'message' => __('No more entries in this category found.','piratenkleider')
 		)
 		) ?>
           </ul>
@@ -133,31 +150,12 @@
 	?>
 	    <div class="content-aside">
 	      <div class="skin">
-	       <h1 class="skip"><?php _e( 'Weitere Informationen', 'piratenkleider' ); ?></h1>
+	       <h1 class="skip"><?php _e( 'More information', 'piratenkleider' ); ?></h1>
 	       <?php
 
-		if (  
-			( isset($custom_fields['text']) && isset($custom_fields['image_url']) && 
-			   ($custom_fields['image_url'][0]<>'') && ($custom_fields['text'][0]<>''))
-			|| (
-				(isset($custom_fields['text']) && $custom_fields['text'][0]<>'') && (has_post_thumbnail())))             
-		    {   ?>
-		    <div id="steckbrief">   
-			<?php
-			if (isset($custom_fields['image_url']) &&  $custom_fields['image_url'][0]<>'') {
-			    echo wp_get_attachment_image( $custom_fields['image_url'][0], array(300,300) ); 
-			} else {
-			     the_post_thumbnail(array(300,300));
-			} ?>
-
-			<div class="text">
-			     <?php echo do_shortcode(get_post_meta($post->ID, 'text', $single = true)); ?>
-			</div>
-		   </div>
-		   <?php 
-		}  
-
-		piratenkleider_echo_player();       
+		
+		echo get_piratenkleider_steckbrief();
+		
 		get_sidebar(); 
 		?>
 	      </div>
@@ -166,4 +164,4 @@
   </div>
  <?php get_piratenkleider_socialmediaicons(2); ?>
 </div>
-<?php get_footer(); ?>
+<?php get_footer(); 

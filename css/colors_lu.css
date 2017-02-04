@@ -78,27 +78,7 @@
         background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2d7dc5), color-stop(1, #1a4872));
         background-image: linear-gradient(top, #2d7dc5, #1a4872);
       }
-      .sticky {
-        border-color: #888;
-        border-color: rgba(0,0,0,.3);
-        -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        -ms-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        color: #444;
-        color: rgba(0,0,0,.8);
-        background: url("../images/int/bg-tags-lu.png") repeat fixed -20% top #B127AF;
-     }
-     .sticky a {
-         color: black;
-         background: #993399;
-
-     }      
-     .sticky a:hover,
-     .sticky a:focus {    
-        color: #000;
-        background: #d97300;
-     }   
+  
     
      .skiplinks li a:focus, 
      .skiplinks li a:active {
@@ -120,13 +100,10 @@
     }    
     
 .sticker ul li {  
-    font-family: "FontPiratenkleiderHeadlines",Helvetica,Arial,sans-serif; 
     border-color: transparent;     
   }
 
-  .sticker ul li a {    
-        color: #666;       
-  }
+
   .sticker ul li a:hover,
   .sticker ul li a:focus {
     color: #1a4872; 
@@ -182,7 +159,6 @@
   }
     .second-teaser-widget-area li a div {
       color: black;
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
       text-shadow: 0 -1px 1px #552554;
 
     }
@@ -211,7 +187,6 @@
   }
  .teaserlinks ul li a {
      color: white;
-     font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
      text-shadow: 0 -1px 1px #552554;
  }
   .teaserlinks ul li a:hover,
@@ -242,7 +217,6 @@
     .content .symbolbild .aaarh {
          background: transparent;
          color: black;
-         font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
     }
     
     .content-header-big {
@@ -256,9 +230,7 @@
     border-color: black; 
     background-color: beige;
   }
-   .content-primary .post-nav a {
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-     }
+
       .content-primary .sprungmarken ol li a:hover {
           background: #B127AF;
           color: black;
@@ -279,9 +251,7 @@
     box-shadow: 1px 1px 2px #444444; 
   }
 
-    .post .post-info .cal-icon .day {
-        font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-    }
+
     .post .post-meta {
          color: #222;
     }
@@ -322,9 +292,7 @@
             color: #888;
     }
 
-    .first-startpage-widget-area li a {
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-      }
+
      .first-startpage-widget-area a.all-articles {
         background: #2d7dc5;
         color: white;
@@ -353,6 +321,13 @@
     color: white;
     background: rgba(255, 255, 255, 0.2); 
   }
+.content-aside #steckbrief a {
+  background: transparent;
+}
+.content-aside #steckbrief a:hover {
+    background: transparent;
+  }
+  
   
   .content-aside table td,
   .content-aside table th {
@@ -364,14 +339,15 @@
   background: rgba(255, 255, 255, 0.2); 
  }
   
- 
+ .content-aside .newsletter {
+     background-color: #B127AF;
+ }
  .content-aside ul.menu {
   background: #993399;
  background: rgba(255, 255, 255, 0.2); 
 }
 
 .content-aside ul.menu li a {
-
       background: white;
       color: #2d7dc5;
  }
@@ -387,7 +363,9 @@
     background: #2d7dc5 url("../images/plus-left.gif") center left no-repeat;
     color: white;
 }
-
+.content-aside p {
+    color: black;
+}
 
 .subcontent {
   background: black url("../images/int/bg-tags_gray.jpg") -20% top fixed;
@@ -513,14 +491,6 @@ div.ics-calendar-holder .ics-calendar-event {
         color: #2d7dc5; 
   }        
 
-  .content-aside {
-      background: #B127AF url("../images/int/bg-tags-lu.png") -20% top fixed; 
-   }
-
-  .content-aside .skin {
-           background: #B127AF;
-           background: rgba(153, 51, 153, 0.2);
-    }
    
 }
  @media only screen and (max-width: 600px) {
@@ -573,3 +543,5 @@ div.ics-calendar-holder .ics-calendar-event {
  }
     
  }
+ 
+ 

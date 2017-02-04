@@ -82,27 +82,8 @@
         background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2d7dc5), color-stop(1, #1a4872));
         background-image: linear-gradient(top, #2d7dc5, #1a4872);
       }
-      .sticky {
-        border-color: #888;
-        border-color: rgba(0,0,0,.3);
-        -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        -ms-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-        color: #444;
-        color: rgba(0,0,0,.8);
-        background: url("../images/int/bg-tags-tk.png") repeat fixed -20% top #00B5B1;
-     }
-     .sticky a {
-         color: black;
-         background: #00B4B1;
-
-     }      
-     .sticky a:hover,
-     .sticky a:focus {    
-        color: #000;
-        background: #d97300;
-     }   
+ 
+  
     
      .skiplinks li a:focus, 
      .skiplinks li a:active {
@@ -124,13 +105,9 @@
     }    
     
 .sticker ul li {  
-    font-family: "FontPiratenkleiderHeadlines",Helvetica,Arial,sans-serif; 
     border-color: transparent;     
   }
 
-  .sticker ul li a {    
-        color: #666;       
-  }
   .sticker ul li a:hover,
   .sticker ul li a:focus {
     color: #1a4872; 
@@ -188,7 +165,6 @@
   }
     .second-teaser-widget-area li a div {
       color: black;
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
       text-shadow: 0 -1px 1px #c36800;
 
     }
@@ -217,7 +193,6 @@
   }
  .teaserlinks ul li a {
      color: white;
-     font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
      text-shadow: 0 -1px 1px #c36800;
  }
   .teaserlinks ul li a:hover,
@@ -247,7 +222,6 @@
     .content .symbolbild .aaarh {
          background: transparent;
          color: black;
-         font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
     }
     .content-header-big {
 	  background: url(../images/int/bg-tags-tk.png);
@@ -260,9 +234,7 @@
     border-color: black; 
     background-color: beige;
   }
-   .content-primary .post-nav a {
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-     }
+
       .content-primary .sprungmarken ol li a:hover {
           background: #00B5B1;
           color: black;
@@ -283,9 +255,7 @@
     box-shadow: 1px 1px 2px #444444; 
   }
 
-    .post .post-info .cal-icon .day {
-        font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-    }
+
     .post .post-meta {
          color: #222;
     }
@@ -326,9 +296,7 @@
             color: #888;
     }
 
-    .first-startpage-widget-area li a {
-      font-family: "FontPiratenkleiderHeadlines", Helvetica, Arial, sans-serif;
-      }
+
      .first-startpage-widget-area a.all-articles {
         background: #2d7dc5;
         color: white;
@@ -357,7 +325,12 @@
     color: #000;
     background: rgba(0, 0, 0, 0.2); 
   }
-  
+  .content-aside #steckbrief a {
+  background: transparent;
+}
+.content-aside #steckbrief a:hover {
+    background: transparent;
+  }
   .content-aside table td,
   .content-aside table th {
     border-top-color: #00B5B1; 
@@ -368,7 +341,9 @@
   background: rgba(0, 0, 0, 0.2);
  }
   
- 
+ .content-aside .newsletter {
+     background-color: #00B5B1;
+ }
  .content-aside ul.menu {
   background: #00B4B1;
   background: rgba(0, 0, 0, 0.2);
@@ -391,7 +366,9 @@
     background: #2d7dc5 url("../images/plus-left.gif") center left no-repeat;
     color: white;
 }
-
+.content-aside p {
+    color: black;
+}
 
 .subcontent {
   background: black url("../images/int/bg-tags_gray.jpg") -20% top fixed;
@@ -517,14 +494,6 @@ div.ics-calendar-holder .ics-calendar-event {
         color: #2d7dc5; 
   }        
 
-  .content-aside {
-      background: #00B5B1 url("../images/int/bg-tags-tk.png") -20% top fixed; 
-   }
-
-  .content-aside .skin {
-           background: #00B5B1;
-           background: rgba(0, 181, 177, 0.7); 
-    }
    
 }
  @media only screen and (max-width: 600px) {
@@ -577,3 +546,4 @@ div.ics-calendar-holder .ics-calendar-event {
  }
     
  }
+ 

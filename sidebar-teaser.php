@@ -1,13 +1,10 @@
 <?php
    global $defaultoptions;
-   global $defaultbilder_liste;
    global $options;  
 ?>          
 <div class="first-teaser-widget-area">
-<?php if ( is_active_sidebar( 'first-teaser-widget-area' ) ) { ?>
-        <?php dynamic_sidebar( 'first-teaser-widget-area' ); ?>
-    <?php } else {        
-   
+<?php
+     
          $defaultbildsrc = $options['slider-defaultbildsrc'];                        
          $cat = $options['slider-catid'];
 	 global $thisCat;
@@ -28,64 +25,113 @@
         query_posts( array( 'cat' => "$cat", 'posts_per_page' => $numberarticle) );
         ?>
         <div class="flexslider">
-            <h2 class="skip"><?php _e( 'Aktuelle Themen', 'piratenkleider' ); ?></h2>
+            <h2 class="skip"><?php _e( 'Information slides', 'piratenkleider' ); ?></h2>
             <ul class="slides">
         <?php 
         if ( have_posts() ) while ( have_posts() ) : the_post();
-            echo "<li class='slide'>";
+            echo '<li class="slide">';
             if ($options['teaser-type'] == 'big') {
-                 echo '<div class="bigslider">';
-                if (has_post_thumbnail()) {           
-                 the_post_thumbnail(array($defaultoptions['bigslider-thumb-width'],$defaultoptions['bigslider-thumb-height']),array('alt'=> ''));
-                } else {
-                    if ((isset($defaultbildsrc)) && (strlen(trim($defaultbildsrc))>2)) {  
-                        echo '<img src="'.$defaultbildsrc.'" width="'.$defaultoptions['bigslider-thumb-width'].'" height="'.$defaultoptions['bigslider-thumb-height'].'" alt="">';                
-                    } else {
-                        $randombild = array_rand($defaultbilder_liste,2);
-                        echo '<img src="'.$defaultbilder_liste[$randombild[0]]['src'].'" width="'.$defaultoptions['bigslider-thumb-width'].'" height="'.$defaultoptions['bigslider-thumb-height'].'" alt="">'; 
+                $attribs = array(
+                 "credits" => $options['img-meta-credits'],
+                );
+                              
+                echo '<div class="bigslider">';
+                
+                $sliderimage =  get_post_meta( get_the_ID(), 'piratenkleider_slider_image', true );
+                if ($sliderimage) {
+                    $image_url_data = wp_get_attachment_image_src( $sliderimage, 'highslider');
+                     
+                    $image_url = $image_url_data[0];
+                    $attribs = piratenkleider_get_image_attributs($sliderimage);
+                    if (isset($image_url) && strlen($image_url)>0){                        
+                        echo '<img src="'.$image_url.'"  width="'.$options['highslider-width'].'" height="'.$options['highslider-height'].'" alt="">';
+                    }     
+                     
+                } elseif (has_post_thumbnail()) {    
+                    $thumbid = get_post_thumbnail_id(get_the_ID());
+                    $image_url_data = wp_get_attachment_image_src( $thumbid, 'highslider');
+                    if (! $image_url_data) {                    
+                        $image_url_data = wp_get_attachment_image_src( $thumbid, 'bigslider');
                     }
+                    if (! $image_url_data) {                    
+                        $image_url_data = wp_get_attachment_image_src( $thumbid, 'full');
+                    }
+                    $image_url = $image_url_data[0];
+                    $attribs = piratenkleider_get_image_attributs($thumbid);
+                    if (isset($image_url) && strlen($image_url)>0){                        
+                        echo '<img src="'.$image_url.'" alt="">';
+                    } else {
+			if (isset($options['slider-defaultbildsrc_id'])) {
+			    $image_url_data = wp_get_attachment_image_src( $options['slider-defaultbildsrc_id'], 'full');
+			    $image_url = $image_url_data[0];
+			    $attribs = piratenkleider_get_image_attributs($options['slider-defaultbildsrc_id']);
+			} else {
+			    $image_url = $options['slider-defaultbildsrc'];
+			    $attribs = array("credits" => $options['img-meta-credits'] );
+			}
+                       
+                        echo '<img src="'.$image_url.'" width="'.$options['bigslider-thumb-width'].'" height="'.$options['bigslider-thumb-height'].'" alt="">';                
+                    }       
+                } else {
+		    if (isset($options['slider-defaultbildsrc_id'])) {
+			    $image_url_data = wp_get_attachment_image_src( $options['slider-defaultbildsrc_id'], 'full');
+			    $image_url = $image_url_data[0];
+			    $attribs = piratenkleider_get_image_attributs($options['slider-defaultbildsrc_id']);			    
+		    } 
+		    if (!isset($image_url)) {
+			    $image_url = $options['slider-defaultbildsrc'];
+			    $attribs = array("credits" => $options['img-meta-credits'] );
+		    }
+                     echo '<img src="'.$image_url.'" width="'.$options['bigslider-thumb-width'].'" height="'.$options['bigslider-thumb-height'].'" alt="">';                
+                  
                 }
-                echo '<div class="caption"><p class="bebas">'.$subtitle.'</p>';
-                echo "<h3><a href=";
+                echo '<div class="caption"><p class="cifont">'.$subtitle.'</p>';
+                echo '<h3><a href="';
                 the_permalink();
-                echo ">";
+                echo '">';
                 echo short_title('&hellip;', $options['teaser-title-words'], $options['teaser-title-maxlength']);
-                echo "</a></h3></div>";        
+                echo "</a></h3></div>";   
+                                
+                if (($options['teaser-showcredits']==1) && isset($attribs["credits"]) && (strlen($attribs["credits"])>1)) {
+                    echo '<div class="credits">'.$attribs["credits"].'</div>';
+                } 
                 echo "</div>";    
             } else {
                 echo '<div class="textslider">';
                 if (has_post_thumbnail()) {           
                     the_post_thumbnail(array($defaultoptions['smallslider-thumb-width'],$defaultoptions['smallslider-thumb-height']),array('alt'=> ''));                
                } else {
-                    if ((isset($defaultbildsrc)) && (strlen(trim($defaultbildsrc))>2)) {
-                        echo '<img src="'.$defaultbildsrc.'" width="'.$defaultoptions['smallslider-thumb-width'].'" height="'.$defaultoptions['smallslider-thumb-height'].'" alt="">';                
-                    } else {
-                        $randombild = array_rand($defaultbilder_liste,2);
-                        echo '<img src="'.$defaultbilder_liste[$randombild[0]]['src'].'" width="'.$defaultoptions['smallslider-thumb-width'].'" height="'.$defaultoptions['smallslider-thumb-height'].'" alt="">'; 
-                    }
+		   if (isset($options['slider-defaultbildsrc_id']) && ($options['slider-defaultbildsrc_id']>0)) {
+			    $image_url_data = wp_get_attachment_image_src( $options['slider-defaultbildsrc_id'], 'full');
+			    $image_url = $image_url_data[0];
+			    $attribs = piratenkleider_get_image_attributs($options['slider-defaultbildsrc_id']);
+		    } else {
+			    $image_url = $options['slider-defaultbildsrc'];
+			    $attribs = array("credits" => $options['img-meta-credits'] );
+		    }
+                     echo '<img src="'.$image_url.'" width="'.$options['smallslider-thumb-width'].'" height="'.$options['smallslider-thumb-height'].'" alt="">';                
                 }              
-                echo "<h3><a href=";
+                echo '<h3><a href="';
                 the_permalink();
-                echo ">";
+                echo '">';
                 the_title();
                 echo '</a></h3><div class="teaser-excerpt">';
                 echo get_piratenkleider_custom_excerpt();
                 echo "</div></div>";          
             }
             
-            echo "</li>";
+            echo "</li>\n";
         endwhile;
         echo "</ul>";
         echo "</div>";
         wp_reset_query(); 
-    } ?>
+     ?>
 </div>
 <div class="second-teaser-widget-area">
 <div class="skin">
     <?php if ( is_active_sidebar( 'second-teaser-widget-area' ) ) { ?>
         <?php dynamic_sidebar( 'second-teaser-widget-area' ); ?>
-    <?php } else {  ?>
-    
+    <?php } else {  ?>    
         <div class="teaserlinks">
             <ul>
                 <li><a class="symbol symbol-<?php echo $options['teaserlink1-symbol'] ?>" href="<?php echo $options['teaserlink1-url'] ?>"><?php echo $options['teaserlink1-title'] ?> <span><?php echo $options['teaserlink1-untertitel'] ?></span></a></li>

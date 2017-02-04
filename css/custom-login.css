@@ -1,62 +1,69 @@
-/* 
-    Document   : custom-login
-    Created on : 08.05.2012, 17:41:55
-    Author     : xwolf
-    Description:
-        Piratiger  Loginscreen
- 
-*/
+/*
+ * Document   : custom-login
+ * Author     : xwolf
+ * Description:
+ * Pirate Login
+ */
 
+html {
+	height: auto; 
+}
 
-
-  
-
-
-body.login  {
-    border-top-color:#dff4fc;
-    background: orange url(../images/int/bg-tags.png) 0 0;
-    padding-top: 20px;
- 
-}	/* Top bar background color */
+body.login {
+	padding: 20px 0;
+	color: #888;
+	background: #dddddd;
+	background: -webkit-linear-gradient(top, #dddddd 23%, #0e0e0e 100%);
+	background: linear-gradient(to bottom, #dddddd 23%, #0e0e0e 100%);
+}	
 
 #login {
-   width: 500px;
-   background: black url(../images/login-wallpaper.jpg) no-repeat;
-   padding-top: 20px;
-   
+	width: 100%;
+	max-width: 500px;
+	background: black url(../images/login-wallpaper.jpg) no-repeat;
+	background-size: 100%;
+	padding-top: 20px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
-.login h1 {	/* Title image (The "WordPress Logo"). Remember to update the height and width your image's dimensions */
-    display: none;
-} 
+
+.login h1 {	
+	display: none;
+}
+
 .login h1 a {
-    background: transparent;
+	background: transparent;
 }
- 
+
 .login form {
-   background: rgba(0, 0, 0, 0.3);
-   margin: auto;   
-   margin-top: 370px;
-   width: 260px;
-   border: none;
-   border-radius: 0;
-  -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
-    
+	background: rgba(0, 0, 0, 0.3);
+	margin: auto;
+	margin-top: 380px;
+	width: 260px;
+	border: none;
+	border-radius: 0;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
 .login label {
-        color: white;
+	color: white;
 }
+
 .login p#backtoblog,
 .login p#nav {
-    background: none repeat fixed -20% 0 rgba(0, 0, 0, 0.1); 
-    width: auto;
-    text-shadow: none;
-    margin: 0 auto;
-    padding-bottom: 1em;
-    text-align: center;
+	background: none repeat fixed -20% 0 rgba(0, 0, 0, 0.1);
+	width: auto;
+	text-shadow: none;
+	margin: 0 auto;
+	padding-bottom: 1em;
+	text-align: center;
 }
 
 .login #nav a, .login #backtoblog a {
-    color: white !important;
+	color: white !important;
+}
+
+@media screen and (max-width: 500px) {
+	body.login {
+		padding: 0;
+	}
 }

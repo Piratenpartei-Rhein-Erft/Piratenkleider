@@ -11,8 +11,15 @@
 	
 	<?php
 	    $image_url = '';	  
+	    $attribs = array(  "credits" => $options['img-meta-credits'] );
 	    if (($options['aktiv-platzhalterbilder-indexseiten']==1) && (isset($options['src-default-symbolbild-tag']))) {  
-		    $image_url = $options['src-default-symbolbild-tag'];		    
+		 if (isset($options['src-default-symbolbild-tag_id']) && ($options['src-default-symbolbild-tag_id']>0)) {
+			$image_url_data = wp_get_attachment_image_src( $options['src-default-symbolbild-tag_id'], 'full');
+			$image_url = $image_url_data[0];
+			$attribs = piratenkleider_get_image_attributs($options['src-default-symbolbild-tag_id']);
+		    } else {
+			$image_url = $options['src-default-symbolbild-tag'];
+		    }
 	    }	    
 	    
 	    if (isset($image_url) && (strlen($image_url)>4)) { 
@@ -22,44 +29,43 @@
 		    echo '<div class="content-header">';
 		}
 		?>    		    		    		        
-		   <h1 class="post-title"><span><?php printf( __( 'Schlagwort %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>
-		   <div class="symbolbild"><img src="<?php echo $image_url ?>" alt="">		  		    		  
+		   <h1 class="post-title"><span><?php printf( __( 'Tag %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>
+		   <div class="symbolbild"><img src="<?php echo piratenkleider_make_link_relative($image_url); ?>" alt="" itemprop="image">	
+		    <?php if (isset($attribs["credits"]) && (strlen($attribs["credits"])>1)) {
+                           echo '<div class="caption">'.$attribs["credits"].'</div>';  
+                        }  ?>		       
 		   </div>
 		</div>  	
 	    <?php } ?>
 	
-      <div class="skin">
+      <div class="skin" itemprop="mainContentOfPage">
 	  
 	  <?php if (!(isset($image_url) && (strlen($image_url)>4))) { ?>
-	    <h1 class="post-title"><span><?php printf( __( 'Schlagwort %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>	
-	
-
+	    <h1 class="post-title"><span itemprop="name"><?php printf( __( 'Tag %s', 'piratenkleider' ), '' . single_cat_title( '', false ) . '' ); ?></span></h1>	
             <?php }
-	
-             
-
             
       $i = 0; 
       $col = 0; 
       
       $numentries = $options['category-num-article-fullwidth'] + $options['category-num-article-halfwidth']; 
-      $col_count = 3; 
       $cols = array();
      
       global $query_string;
-      query_posts( $query_string . '&cat=$thisCat' );
- 
+      $args = $query_string;
+      $args .= '&posts_per_page='.$numentries;
+      query_posts( $args ); 
+      
+      
       while (have_posts() && $i<$numentries) : the_post();
       $i++;
-      ob_start();      
+      $output = '';     
       if (( isset($options['category-num-article-fullwidth']))
                 && ($options['category-num-article-fullwidth']>=$i )) {
-		 piratenkleider_post_teaser($options['category-teaser-titleup'],$options['category-teaser-datebox'],$options['category-teaser-dateline'],$options['category-teaser-maxlength'],$options['teaser-thumbnail_fallback'],$options['category-teaser-floating']);
+	 $output =  piratenkleider_post_teaser($options['category-teaser-titleup'],$options['category-teaser-datebox'],$options['category-teaser-dateline'],$options['category-teaser-maxlength'],$options['teaser-thumbnail_fallback'],$options['category-teaser-floating']);
       } else {
-		 piratenkleider_post_teaser($options['category-teaser-titleup-halfwidth'],$options['category-teaser-datebox-halfwidth'],$options['category-teaser-dateline-halfwidth'],$options['category-teaser-maxlength-halfwidth'],$options['teaser-thumbnail_fallback'],$options['category-teaser-floating-halfwidth']);  
+	 $output = piratenkleider_post_teaser($options['category-teaser-titleup-halfwidth'],$options['category-teaser-datebox-halfwidth'],$options['category-teaser-dateline-halfwidth'],$options['category-teaser-maxlength-halfwidth'],$options['teaser-thumbnail_fallback'],$options['category-teaser-floating-halfwidth']);  
       }    
-      $output = ob_get_contents();
-      ob_end_clean();
+
       if (isset($output)) {
         $cols[$col++] = $output;
       }
@@ -94,8 +100,8 @@
             
                    <?php if (  $wp_query->max_num_pages > 1 ) : ?>
                         <div class="archiv-nav"><p>
-                            <?php next_posts_link( __( '&larr; &Auml;ltere Beitr&auml;ge', 'piratenkleider' ) ); ?>
-                            <?php previous_posts_link( __( 'Neuere Beitr&auml;ge &rarr;', 'piratenkleider' ) ); ?>
+                            <?php next_posts_link( __( '&larr; Older Entries', 'piratenkleider' ) ); ?>
+                            <?php previous_posts_link( __( 'Newer Entries &rarr;', 'piratenkleider' ) ); ?>
                           </p></div>       
                 <?php endif;  
 		
@@ -109,7 +115,7 @@
 
     <div class="content-aside">
       <div class="skin">       
-          <h1 class="skip"><?php _e( 'Weitere Informationen', 'piratenkleider' ); ?></h1>
+          <h1 class="skip"><?php _e( 'More information', 'piratenkleider' ); ?></h1>
          <?php get_sidebar(); ?>
       </div>
     </div>
@@ -117,4 +123,5 @@
  <?php get_piratenkleider_socialmediaicons(2); ?>
 </div>
 
-<?php get_footer(); ?>
+<?php get_footer(); 
+

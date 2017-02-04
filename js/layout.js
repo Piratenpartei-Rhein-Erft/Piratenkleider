@@ -13,26 +13,9 @@ jQuery(document).ready(function($) {
  * unsichtbar gemacht. Durch JS entfernen wir die Klasse und 
  * machen sie also erst dann aktiv, wenn JS an ist.
  */ 
-    $("div").removeClass('no-js')
+    $("div").removeClass('no-js');
 
-    /** @TODO modernizr einbinden und gegen das Original Modernizr.touch checken */
-    if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
-        var $links = $('a', '#nav');
-
-        $links.on('touchstart', function (ev) {
-
-            /** Hover vortäuschen damit die Submenus angezeigt/versteckt werden */
-            $('li.hover', '#nav').removeClass('hover');
-            $(this).parents('li').addClass('hover');
-
-            /** Verhindere den Aufruf des Links beim ersten Tap */
-            if (!$(this).hasClass('touched')) {
-                $links.removeClass('touched').filter(this).addClass('touched');
-                ev.preventDefault();
-            }
-        });
-    }
-
+ 
      /* Barrierefreie Hauptnavigation mit Tastatur 
      * Links, die via Tastatur einen Fikus bekommen, erhalten die Klasse
      * "hover". Diese Klasse wird auf das aktive Element, sowie die darübergehenden
@@ -76,6 +59,9 @@ jQuery(document).ready(function($) {
     var $cssPrimaryOnViewSidebar = {
 	'width' : '705px' 
     };
+    var $cssPrimaryOnBigViewSidebar = {
+	'width' : '1024px' 
+    };
     var $cssASideOnViewSidebar = {
 	'width' : '319px' 
     };
@@ -104,77 +90,59 @@ jQuery(document).ready(function($) {
 	    $(".switchon").toggle();
 	    $(".switchoff").toggle();
 	    $(".content-aside .skin").toggle();
-	    $(".content-primary").css($cssPrimaryOnViewSidebar);
+            curwidth = $(window).width();
+            if (curwidth >1350) {              
+                $(".content-primary").css($cssPrimaryOnBigViewSidebar);
+            } else {
+                $(".content-primary").css($cssPrimaryOnViewSidebar);
+            }	    
 	    $(".content-aside").css($cssASideOnViewSidebar);      
 	    event.preventDefault();
 	})
     };
 
-
-    
    var breite = $(window).width();
-   if (breite > 1000) {
-    $.SetOnSwitch();
-    $.SetOffSwitch();
-    $(".switchon").toggle();
-    $.OnClickOnSwitchOff();
-    $.OnClickOnSwitchOn();
-   }
+        $.SetOnSwitch();
+        $.SetOffSwitch();
+        $(".switchon").toggle();
+        $.OnClickOnSwitchOff();
+        $.OnClickOnSwitchOn();
+
+ 
+
+    $(window).scroll(function () { 
+        if (( $(window).scrollTop() > 184 ) && (breite > 800))  {
+          $("body").addClass("nav-fixed");
+        };
+        if (( $(window).scrollTop() <= 184 )&& (breite > 800)) {
+          $("body").removeClass("nav-fixed");    
+        };          
+    });
+   $(window).resize(function() {
+	breite = $(window).width();
+	if (( $(window).scrollTop() > 184 ) && (breite > 800))  {
+          $("body").addClass("nav-fixed");
+        };
+        if (( $(window).scrollTop() <= 184 )&& (breite > 800)) {
+          $("body").removeClass("nav-fixed");    
+        };  
+   });
+   
+    $("#nav-select").change(function(){
+    //alert('url = ' + this.value );
+    window.location.href = this.value;
+  });
+ 
+
     
 });  
 
-/* 
- *  Workaround für IE8 und Webkit browser, um den Focus zu korrigieren, bei Verwendung von Skiplinks
- */  
-(function () {
-	var YAML_focusFix = {
-		skipClass : 'ym-skip',
+jQuery(document).ready(function($) {
+		$(".accordion h2:gt(0)").addClass("closed");
+		$(".accordion div:gt(0)").hide();
+		$(".accordion h2").click(function(){
+			$(this).next("div").slideToggle("slow");
+			$(this).toggleClass("closed");
+			});
+	});
 
-		init : function () {
-			var userAgent = navigator.userAgent.toLowerCase();
-			var	is_webkit = userAgent.indexOf('webkit') > -1;
-			var	is_ie = userAgent.indexOf('msie') > -1;
-
-			if (is_webkit || is_ie) {
-				var body = document.body,
-					handler = YAML_focusFix.click;
-				if (body.addEventListener) {
-					body.addEventListener('click', handler, false);
-				} else if (body.attachEvent) {
-					body.attachEvent('onclick', handler);
-				}
-			}
-		},
-
-		trim : function (str) {
-			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-		},
-
-		click : function (e) {
-			e = e || window.event;
-			var target = e.target || e.srcElement;
-			var a = target.className.split(' ');
-
-			for (var i=0; i < a.length; i++) {
-				var cls = YAML_focusFix.trim(a[i]);
-				if ( cls === YAML_focusFix.skipClass) {
-					YAML_focusFix.focus(target);
-					break;
-				}
-			}
-		},
-
-		focus : function (link) {
-			if (link.href) {
-				var href = link.href,
-					id = href.substr(href.indexOf('#') + 1),
-					target = document.getElementById(id);
-				if (target) {
-					target.setAttribute("tabindex", "-1");
-					target.focus();
-				}
-			}
-		}
-	};
-	YAML_focusFix.init();
-})(); 
