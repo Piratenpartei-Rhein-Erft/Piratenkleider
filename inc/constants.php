@@ -1,7 +1,7 @@
 <?php
 /**
  * Piratenkleider Constants
- *
+ * 
  **/ 
 
 $defaultoptions = array(
