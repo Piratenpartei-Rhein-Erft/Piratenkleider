@@ -3,6 +3,13 @@ Theme Piratenkleider
 Changelog 
 (since version 3.2; Former changes look at github.com/Piratenkleider/)
 
+Version 3.4.6:
+* Posters for Saarland17
+
+Version 3.4.5:
+* Bugfixes and merges
+* Posters for NRW17
+
 Version 3.4.4:
 * Follow-up fix for #202: Do not add space before article headers in more articles section
 * Add anchor for comments, should fix #235
